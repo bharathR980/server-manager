@@ -1,0 +1,88 @@
+<div class="card m-2 w-300" *ngIf="server">
+    <div class="card-header">
+        <button *ngIf="!editMode" class="menu-btn" mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <h5 class="card-title fw-bold">
+            <ng-container *ngIf="editMode; else elseTitle">
+                <input class="form-control" [(ngModel)]="editedServerInfo.title" />
+            </ng-container>
+            <ng-template #elseTitle>
+                {{server.title}}
+                <span [class.bg-success]="server.status === 'Online'"
+                    [class.bg-warning]="server.status === 'Deployment Pending'"
+                    [class.bg-danger]="['Unspecified', 'Offline'].includes(server.status)"
+                    [class.bg-secondary]="server.status === 'Deployment Failed'"
+                    [class.bg-info]="server.status === 'Maintenance'" class="m-2 dot badge rounded-circle">
+                    &nbsp;
+                </span>
+            </ng-template>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+            <ng-container *ngIf="editMode;else elseDes">
+                <textarea class="form-control" class="form-control"
+                    [(ngModel)]="editedServerInfo.description"></textarea>
+            </ng-container>
+            <ng-template #elseDes>
+                {{server.description}}
+            </ng-template>
+        </h6>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Status:
+            {{ server.status }}
+        </p>
+        <p class="card-text">Health: {{ server.health }}</p>
+        <p class="card-text">IP Address: {{ server.ipAddress }}</p>
+        <p class="card-text">Location: {{ server.location }}</p>
+        <p class="card-text">Owner: {{ server.owner }}</p>
+        <p class="card-text">CPU Usage: {{ server.cpuUsage }}</p>
+        <p class="card-text">Memory Usage: {{ server.memoryUsage }}</p>
+        <p class="card-text">Storage Usage: {{ server.storageUsage }}</p>
+        <p class="card-text">Operating System: {{ server.os }}</p>
+    </div>
+    <div class="card-footer">
+
+        <ng-container *ngIf="editMode; else elseUpdatedAt">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary" type="button" (click)="editMode = !editMode">Discard</button>
+                <button class="btn btn-primary me-md-2" type="button" (click)="update()">Update</button>
+            </div>
+        </ng-container>
+        <ng-template #elseUpdatedAt>
+            <p>{{ server.updatedAt | lastUpdated }}</p>
+        </ng-template>
+
+    </div>
+</div>
+
+
+<mat-menu #menu="matMenu">
+    <ng-container *ngIf="server">
+        <button *ngIf="server.status !== 'Online'" mat-menu-item (click)="updateStatus('Online')">
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Turn On</span>
+        </button>
+    
+        <button *ngIf="server.status !== 'Offline'" mat-menu-item (click)="updateStatus('Offline')">
+            <mat-icon>power_off</mat-icon>
+            <span>Turn Off</span>
+        </button>
+
+        <button mat-menu-item (click)="editMode = !editMode">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+    
+        <button mat-menu-item (click)="deleteServer()">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+        </button>
+    
+        <button *ngIf="server.status !== 'Online'" mat-menu-item (click)="updateStatus('Online')">
+            <mat-icon>restart_alt</mat-icon>
+            <span>Restart</span>
+        </button>
+    </ng-container>
+</mat-menu>

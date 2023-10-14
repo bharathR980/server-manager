@@ -1,0 +1,120 @@
+<h1 mat-dialog-title>Create Server</h1>
+<div mat-dialog-content>
+  <form (ngSubmit)="onCreateClick()" #serverForm="ngForm">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        [(ngModel)]="data.title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        name="description"
+        [(ngModel)]="data.description"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      <input
+        type="text"
+        class="form-control"
+        id="status"
+        name="status"
+        [(ngModel)]="data.status"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="health" class="form-label">Health</label>
+      <input
+        type="text"
+        class="form-control"
+        id="health"
+        name="health"
+        [(ngModel)]="data.health"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="ipAddress" class="form-label">IP Address</label>
+      <input
+        type="text"
+        class="form-control"
+        id="ipAddress"
+        name="ipAddress"
+        [(ngModel)]="data.ipAddress"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input
+        type="text"
+        class="form-control"
+        id="location"
+        name="location"
+        [(ngModel)]="data.location"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="owner" class="form-label">Owner</label>
+      <input
+        type="text"
+        class="form-control"
+        id="owner"
+        name="owner"
+        [(ngModel)]="data.owner"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="cpuUsage" class="form-label">CPU Usage</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cpuUsage"
+        name="cpuUsage"
+        [(ngModel)]="data.cpuUsage"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="memoryUsage" class="form-label">Memory Usage</label>
+      <input
+        type="text"
+        class="form-control"
+        id="memoryUsage"
+        name="memoryUsage"
+        [(ngModel)]="data.memoryUsage"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="storageUsage" class="form-label">Storage Usage</label>
+      <input
+        type="text"
+        class="form-control"
+        id="storageUsage"
+        name="storageUsage"
+        [(ngModel)]="data.storageUsage"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="os" class="form-label">Operating System</label>
+      <input
+        type="text"
+        class="form-control"
+        id="os"
+        name="os"
+        [(ngModel)]="data.os"
+      />
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button (click)="onCreateClick()" [disabled]="!serverForm.valid">Create</button>
+</div>
